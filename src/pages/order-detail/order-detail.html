@@ -1,0 +1,57 @@
+<!--
+  Generated template for the OrderDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>OrderDetail</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row *ngFor="let item of orderItems">
+      <ion-col col-6>
+        {{ item.name }}
+      </ion-col>
+      <ion-col col-2 offset-1>
+        {{ item.quantity }}
+      </ion-col>
+      <ion-col col-2 offset-1>
+        {{ item.total }}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <h4>Total: {{total}}</h4>
+  <ion-card>
+      <ion-card-content>
+        <!-- <ion-list>
+          <ion-item>
+            <ion-label>Order Recieved</ion-label>
+            <ion-checkbox [(ngModel)]="order_sent" (ionChange)="updateStatus()"></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-label>Accept Order</ion-label>
+            <ion-checkbox [(ngModel)]="accepted" (ionChange)="updateStatus()"></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-label>Order In Kitchen</ion-label>
+            <ion-checkbox [(ngModel)]="in_kitchen" (ionChange)="updateStatus()"></ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-label>Order Sent</ion-label>
+            <ion-checkbox [(ngModel)]="on_the_way" (ionChange)="updateStatus()"></ion-checkbox>
+          </ion-item>                  
+        </ion-list> -->
+        <ion-item *ngFor="let item of options; let i=index">
+          <ion-label>{{item}}</ion-label>
+          <ion-checkbox item-right [ngModel]="checkedIdx == i" (ngModelChange)="$event ? checkedIdx = i : checkedIdx = -1; checkedIdx > -1 ? updateStatus(item, this) : '';" [disabled]="checkedIdx >= 0 && checkedIdx != i"></ion-checkbox>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+</ion-content>

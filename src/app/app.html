@@ -1,0 +1,24 @@
+
+<ion-menu [content]="content" type="overlay">
+    <ion-header>
+        <ion-navbar menuToggle>
+            <ion-title>Menu</ion-title>
+        </ion-navbar>
+    </ion-header>
+
+    <ion-content padding *ngIf="authenticated()">
+        <ion-list>
+            <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+                {{p.title}}
+            </button>
+        </ion-list>
+    </ion-content>
+    <ion-content *ngIf="!authenticated()">
+        <ion-list>
+            <button menuClose ion-item *ngFor="let p of pagesNot" (click)="openPage(p)">
+                {{p.title}}
+            </button>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+<ion-nav id="nav" [root]="rootPage" #content swipe-back-enabled="false"></ion-nav>

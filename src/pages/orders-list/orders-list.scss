@@ -1,0 +1,20 @@
+page-orders-list {
+    #statusCircle{
+        height: 2rem;
+        width: 2rem;
+        border-radius: 50%;
+    }
+    .order-sent{
+        background-color: red;
+    }
+    .accepted{
+        background-color: yellow;
+    }
+    .in-kitchen{
+        background-color: navy;
+    }
+    .on-the-way{
+        background-color: greenyellow;
+    }
+
+}

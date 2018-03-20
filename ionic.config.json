@@ -1,0 +1,8 @@
+{
+  "name": "grubmonk-restaurant-panel",
+  "app_id": "",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
