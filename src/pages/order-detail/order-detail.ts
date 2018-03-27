@@ -25,10 +25,10 @@ export class OrderDetailPage {
   checkedIdx=-1;
 
   options = [
-    'order_sent',
-    'accepted',
-    'in_kitchen',
-    'on_its_way'
+    'Order Received',
+    'Accept Order',
+    'Order In Kitchen',
+    'Order On Its Way'
     ];
   constructor(public navCtrl: NavController, public navParams: NavParams, public appy: ApplicationService) {
   }
@@ -42,6 +42,25 @@ export class OrderDetailPage {
     this.orderItems = this.orderRestaurant.order_items;
     console.log(this.orderItems);
     this.getTotal(this.orderItems);
+    var status = this.orderRestaurant['status'];
+    var currIdx;
+    var order_restaurant_id = this.orderRestaurant.id;
+    switch(status){
+      case "order_sent":
+        currIdx= 0;
+        break;
+      case "accepted":
+        currIdx= 1;
+        break;
+      case "in_kitchen":
+        currIdx= 2;
+        break;
+      case "on_the_way":
+        currIdx= 3;
+        break;
+    }
+    this.checkedIdx = currIdx;
+
   }
 
   getTotal(order_items){
@@ -59,18 +78,22 @@ export class OrderDetailPage {
     var currStatus;
     var order_restaurant_id = this.orderRestaurant.id;
     switch(status){
-      case "order_sent":
+      case "Order Received":
         currStatus= "order_sent";
-      case "accepted":
+        break;
+      case "Accept Order":
         currStatus= "accepted";
-      case "in_kitchen":
+        break;
+      case "Order In Kitchen":
         currStatus= "in_kitchen";
-      case "on_the_way":
+        break;
+      case "Order On Its Way":
         currStatus= "on_the_way";
+        break;
     }
 
     this.appy.updateStatus(order_restaurant_id, currStatus).then((data)=>{
-      order_restaurant_id
+      this.orderRestaurant = data;
     },(err)=>{
 
     })
@@ -79,6 +102,14 @@ export class OrderDetailPage {
 
   statusDone(){
 
+  }
+
+  logRestaurantGoingBack(orderRestaurant){
+
+    var restaurant = orderRestaurant.restaurant.name;
+    var orderNumber = orderRestaurant.order_id;
+    console.log(restaurant+" restaurant just clicked the back status for order "+orderNumber);
+    console.log(orderRestaurant);
   }
 
 

@@ -1,0 +1,26 @@
+<!--
+  Generated template for the RestaurantLocationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>restaurant-location</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <input type="text" id="pac-input" class="onMap"/>
+  <div id="infowindow-content">
+      <span id="place-name"  class="title"></span><br>
+      <span id="place-id"></span><br>
+      <span id="place-address"></span>
+  </div>
+  <div #map_canvas id="map_canvas" (touchmove)="setLandmark(true)"></div>
+
+  <button ion-button (click)="saveRestaurantLocation()">Save Location</button>
+</ion-content>

@@ -26,7 +26,7 @@ export class AuthService {
         this.token_type = undefined;
         this.uid = undefined;
         this.client = undefined;
-        this.baseUrl = "http://localhost:3000/api/v1";
+        this.baseUrl = "http://localhost:3000/api/v1/restaurant_interface";
         //this.baseUrl = "https://grubvibes.herokuapp.com/api/v1";
 
     }

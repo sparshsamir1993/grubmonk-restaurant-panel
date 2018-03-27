@@ -1,3 +1,4 @@
+import { RestaurantLocationPage } from './../pages/restaurant-location/restaurant-location';
 import { OrdersListPage } from './../pages/orders-list/orders-list';
 import { LoginPage } from './../pages/login/login';
 import { HomePage } from './../pages/home/home';
@@ -16,7 +17,8 @@ export class MyApp {
 
   pages = [
     { title: 'Home', component: HomePage },
-    { title : "Orders List", component: OrdersListPage}
+    { title : "Orders List", component: OrdersListPage},
+    { title: "My location", component: RestaurantLocationPage}
   ];
   pagesNot = [
     { title: 'Login', component: LoginPage },

@@ -48,10 +48,13 @@
             <ion-checkbox [(ngModel)]="on_the_way" (ionChange)="updateStatus()"></ion-checkbox>
           </ion-item>                  
         </ion-list> -->
-        <ion-item *ngFor="let item of options; let i=index">
+        <ion-item *ngFor="let item of options; let i=index" [class]="(i <= checkedIdx) ? 'striked':'status'" >
           <ion-label>{{item}}</ion-label>
-          <ion-checkbox item-right [ngModel]="checkedIdx == i" (ngModelChange)="$event ? checkedIdx = i : checkedIdx = -1; checkedIdx > -1 ? updateStatus(item, this) : '';" [disabled]="checkedIdx >= 0 && checkedIdx != i"></ion-checkbox>
+          <ion-checkbox item-right  [ngModel]="checkedIdx == i" (ngModelChange)="$event ? checkedIdx = i : checkedIdx = -1; checkedIdx > -1 ? updateStatus(item, this) : logRestaurantGoingBack(this.orderRestaurant);" [disabled]="(checkedIdx >= i) ? true : false"  ></ion-checkbox>
         </ion-item>
       </ion-card-content>
     </ion-card>
 </ion-content>
+
+
+<!-- [disabled]="checkedIdx >= 0 && checkedIdx != i" -->

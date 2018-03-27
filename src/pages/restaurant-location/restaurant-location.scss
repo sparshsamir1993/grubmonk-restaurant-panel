@@ -1,0 +1,30 @@
+page-restaurant-location {
+    #map_canvas{
+        height: 70%;
+    }
+    .onMap{
+	    position: absolute;
+	    z-index: 9;
+	    left: 6%;
+	    width: 88%;
+	    top: 2.5rem;
+	}
+	.placesCard{
+	    position: absolute;
+	    z-index: 9;
+	    top: 7rem;
+	    width: 84%;
+	    left: 6%;
+	    max-height: 40vh;
+	}
+	.h30vh{
+		height: 30vh;
+	}
+	#infowindow-content {
+        display: none;
+      }
+      #map_canvas #infowindow-content {
+        display: inline;
+      }
+
+}

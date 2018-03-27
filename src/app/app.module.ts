@@ -1,3 +1,4 @@
+import { RestaurantLocationPage } from './../pages/restaurant-location/restaurant-location';
 import { OrderDetailPage } from './../pages/order-detail/order-detail';
 import { OrdersListPage } from './../pages/orders-list/orders-list';
 import { SignUpPage } from './../pages/sign-up/sign-up';
@@ -14,7 +15,8 @@ import { HomePage } from '../pages/home/home';
 import { AuthService } from '../providers/auth-service/auth-service';
 import { IonicStorageModule } from '@ionic/storage';
 import {CommonModule} from '@angular/common';
-
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+import { Geolocation } from '@ionic-native/geolocation';
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import {CommonModule} from '@angular/common';
     SignUpPage,
     OrdersListPage,
     LoginPage,
-    OrderDetailPage
+    OrderDetailPage,
+    RestaurantLocationPage
   ],
   imports: [
     BrowserModule,
@@ -40,14 +43,17 @@ import {CommonModule} from '@angular/common';
     SignUpPage,
     OrdersListPage,
     LoginPage,
-    OrderDetailPage
+    OrderDetailPage,
+    RestaurantLocationPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthService,
-    ApplicationService
+    ApplicationService,
+    Facebook,
+    Geolocation
   ]
 })
 export class AppModule {}

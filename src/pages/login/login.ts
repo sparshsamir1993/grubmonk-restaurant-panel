@@ -1,3 +1,4 @@
+import { Facebook,FacebookLoginResponse } from '@ionic-native/facebook';
 import { HomePage } from './../home/home';
 import { OrdersListPage } from './../orders-list/orders-list';
 import { AuthService } from './../../providers/auth-service/auth-service';
@@ -5,6 +6,7 @@ import { Component , ViewChild} from '@angular/core';
 import { NavController, AlertController, LoadingController } from 'ionic-angular';
 import { Nav,Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'page-login',
@@ -18,8 +20,9 @@ export class LoginPage {
   email:string = '';
   password:string = '';
   name:string = '';
+  accestoken:any;
 
-  constructor(public navCtrl: NavController, public auth: AuthService, public alertCtrl: AlertController, public loadingCtrl:LoadingController, public storage: Storage) {
+  constructor(public navCtrl: NavController, public auth: AuthService, public alertCtrl: AlertController, public loadingCtrl:LoadingController, public storage: Storage, public fb: Facebook) {
       console.log(window.localStorage.getItem('token'));
   }
 
@@ -38,8 +41,11 @@ export class LoginPage {
   doLogin() {
     if(this.showLogin) {
       console.log('process login');
-
-      if(this.email === '' || this.password === '') {
+      var user = JSON.parse(window.localStorage.getItem('user'));
+      if(user){
+        this.email  = user.email;
+      }
+      if(this.email === '' && this.password === '') {
             let alert = this.alertCtrl.create({
               title:'Register Error',
               subTitle:'All fields are rquired',
@@ -88,7 +94,12 @@ export class LoginPage {
       /*
       do our own initial validation
       */
-      if(this.name === '' || this.email === '' || this.password === '') {
+     var user = JSON.parse(window.localStorage.getItem('user'));
+     if(user){
+       this.email  = user.email;
+     }
+
+      if(this.name === '' && this.email === '' && this.password === '') {
         let alert = this.alertCtrl.create({
           title:'Register Error',
           subTitle:'All fields are rquired',
@@ -135,6 +146,31 @@ export class LoginPage {
     } else {
       this.showLogin = false;
     }
+  }
+
+  fbLogin(){
+    this.fb.login(['public_profile', 'user_friends', 'email'])
+    .then((res: FacebookLoginResponse) => {
+      console.log('Logged into Facebook!', res)
+      this.accestoken = res['authResponse']['accessToken'];
+      this.email = res['authResponse']['email'];
+      this.auth.fbchecktoken(this.accestoken).then((data)=>{
+        console.log(data);
+        // this.auth.validateFBtoken(this.accestoken, data['uid'], data['client']).then((data)=>{
+        //   console.log(data);
+        // },(err)=>{
+
+        // })
+        // window.localStorage.setItem('access-token',this.accestoken);
+        this.auth.loadUserCredentials();
+        this.navCtrl.setRoot(HomePage);
+      },(err)=>{
+        console.log(err);
+      });
+    }
+    )
+    .catch(e => console.log('Error logging into Facebook', e));
+    
   }
 
 }

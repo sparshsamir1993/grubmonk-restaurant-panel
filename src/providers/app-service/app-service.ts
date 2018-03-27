@@ -97,16 +97,16 @@ export class ApplicationService {
         headers.append('client', this.client);
   
         return new Promise(resolve =>{
-            this.http.get(this.baseUrl + '/order_restaurant', {headers: headers}).subscribe(data =>{
+            this.http.post(this.baseUrl + '/order_restaurants/'+o_r_id+'/change_order_status?status='+status, {headers: headers}).subscribe(data =>{
                 if(data){
                     console.log(data);
-                    this.orders = data.json();
+                    var order_restaurant = data.json();
                     if(data.headers.toJSON()['access-token'] != undefined){
                         this.getHeaders(data);
                     }
-                    window.localStorage.setItem('orders', JSON.stringify(data.json()));
-                    console.log(this.orders);
-                    resolve(data.json());
+                    
+                    console.log(order_restaurant);
+                    resolve(data.json().object);
                 }
                 else{
                 }
@@ -121,5 +121,39 @@ export class ApplicationService {
         });
           
     }
+    addLocation(lat, lng, user_id){
+        var headers = new Headers();
+        console.log(this.access_token,this.expiry,this.token_type,this.uid, this.client);
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        headers.append('access-token', this.access_token);
+        headers.append('expiry', this.expiry);
+        headers.append('token-type', this.token_type);
+        headers.append('uid', this.uid);
+        headers.append('client', this.client);
+        return new Promise(resolve =>{
+            this.http.post(this.baseUrl + '/restaurant_owners/'+user_id+'/save_location?lat='+lat+'&lng='+lng, {headers: headers}).subscribe(data =>{
+                if(data){
+                    console.log(data);
+                    var restaurant = data.json();
+                    if(data.headers.toJSON()['access-token'] != undefined){
+                        this.getHeaders(data);
+                    }
+                    
+                    console.log(restaurant);
+                    resolve(data.json().object);
+                }
+                else{
+                }
+            },
+            err=>{
+                console.log(err);
+  
+                if(err.statusText == 'Unauthorized'){
+                    
+                }
+            });
+        });
 
+    }
+  
 }
